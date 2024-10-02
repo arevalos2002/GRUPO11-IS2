@@ -35,11 +35,6 @@ class UsuarioManager(BaseUserManager):
 
         return self.create_user(correo_electronico, contraseña, **extra_fields)
 
-class RegistroForm(UserCreationForm):
-    class Meta:
-        model = Usuario
-        fields = ('username', 'email', 'password1', 'password2')
-        
 class Usuario(AbstractBaseUser, PermissionsMixin):
     nombre_usuario = models.CharField(max_length=100, unique=True)
     correo_electronico = models.EmailField(unique=True)
