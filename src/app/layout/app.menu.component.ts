@@ -45,6 +45,11 @@ export class AppMenuComponent implements OnInit {
                                 routerLink: ['/auth/access']
                             }
                         ]
+                    },
+                    {
+                        label: 'Tablero',
+                        icon: 'pi pi-fw pi-table',
+                        routerLink: ['/tablero']
                     }
                 ]
             },
