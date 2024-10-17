@@ -18,6 +18,7 @@ class Columna {
 })
 export class TableroComponent {
   // Inicializa algunas columnas con tareas de ejemplo
+  //hola mundo
   columnas: Columna[] = [
     new Columna('Pendientes', [
       new Tarea('Tarea 1', 'Descripción de tarea 1'),
