@@ -2,8 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { TableroRoutingModule } from './tablero-routing.module';
 import { TableroComponent } from './tablero.component';
-import { DragDropModule } from 'primeng/dragdrop';
-
+import { DragDropModule } from '@angular/cdk/drag-drop';  // Usa el DragDropModule del Angular CDK
 
 @NgModule({
   declarations: [
@@ -12,7 +11,7 @@ import { DragDropModule } from 'primeng/dragdrop';
   imports: [
     CommonModule,
     TableroRoutingModule,
-    DragDropModule
+    DragDropModule  // Mantén solo este
   ]
 })
 export class TableroModule { }

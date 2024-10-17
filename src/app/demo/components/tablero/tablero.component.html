@@ -1,24 +1,27 @@
-<div *ngIf="columnas.length > 0" class="grid">
-    <ng-container *ngFor="let columna of columnas">
-        <div class="col-12 md:col-3">
-            <div class="card p-2" pDroppable (onDrop)="drop(columna)">
-                <span class="flex justify-content-center">{{ columna.nombre }}</span>
-                <hr>
-                <ng-container *ngIf="columna.tareas">
-                    <div class="grid">
-                        <div *ngFor="let tarea of columna.tareas" class="col-12">
-                            <div class="card p-2" pDraggable 
-                                (onDragStart)="dragStart(tarea)" (onDragEnd)="dragEnd(columna)">
-                                <div class="grid">
-                                    <div class="col-12 pb-0"><b>Titulo:</b> {{ tarea.nombre }}</div>
-                                    <div class="col-12"><b>Descripcion:</b> {{ tarea.descripcion }}</div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </ng-container>
-                
-            </div>
-        </div>
-    </ng-container>
+<div class="tablero">
+  <!-- Botón para agregar una nueva columna -->
+  <button (click)="agregarColumna()">Añadir Columna</button>
+
+  <!-- Contenedor de columnas con comportamiento flexible -->
+  <div class="columnas" cdkDropListGroup> <!-- cdkDropListGroup agrupa las listas -->
+    <!-- Recorre las columnas -->
+    <div class="columna" *ngFor="let columna of columnas" cdkDropList [cdkDropListData]="columna.tareas" (cdkDropListDropped)="moverTarea($event)">
+      <h3>
+        {{ columna.nombre }}
+        <!-- Botón para eliminar la columna -->
+        <button (click)="eliminarColumna(columna)">Eliminar Columna</button>
+      </h3>
+
+      <!-- Botón para agregar una nueva tarea -->
+      <button (click)="agregarTarea(columna)">Añadir Tarea</button>
+
+      <!-- Listado de tareas en la columna -->
+      <div *ngFor="let tarea of columna.tareas" cdkDrag class="tarea">
+        <h4>{{ tarea.titulo }}</h4>
+        <p>{{ tarea.descripcion }}</p>
+        <!-- Botón para eliminar la tarea -->
+        <button (click)="eliminarTarea(columna, tarea)">Eliminar Tarea</button>
+      </div>
+    </div>
+  </div>
 </div>

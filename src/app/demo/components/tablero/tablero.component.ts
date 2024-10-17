@@ -1,53 +1,82 @@
-import { Component, OnInit } from '@angular/core';
-import { IColumnaModel, IColumnaTareaModel } from './columna-model';
+import { Component } from '@angular/core';
+import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
+
+// Clase para representar una tarea
+class Tarea {
+  constructor(public titulo: string, public descripcion: string) {}
+}
+
+// Clase para representar una columna
+class Columna {
+  constructor(public nombre: string, public tareas: Tarea[]) {}
+}
 
 @Component({
   selector: 'app-tablero',
   templateUrl: './tablero.component.html',
-  styleUrl: './tablero.component.scss'
+  styleUrls: ['./tablero.component.scss']
 })
-export class TableroComponent implements OnInit {
+export class TableroComponent {
+  // Inicializa algunas columnas con tareas de ejemplo
+  columnas: Columna[] = [
+    new Columna('Pendientes', [
+      new Tarea('Tarea 1', 'Descripción de tarea 1'),
+      new Tarea('Tarea 2', 'Descripción de tarea 2')
+    ]),
+    new Columna('En Progreso', [
+      new Tarea('Tarea 3', 'Descripción de tarea 3')
+    ]),
+    new Columna('Completadas', [
+      new Tarea('Tarea 4', 'Descripción de tarea 4')
+    ])
+  ];
 
-  columnas: IColumnaModel[];
-  tareaSeleccionada: IColumnaTareaModel;
-
-  constructor() {
-    this.columnas = [];
-    this.crearColumnas();
+  // Función para mover una tarea entre columnas
+  moverTarea(event: CdkDragDrop<Tarea[]>) {
+    // Si la tarea se mueve dentro de la misma columna
+    if (event.previousContainer === event.container) {
+      moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
+    } else {
+      // Si la tarea se mueve a una columna diferente
+      transferArrayItem(
+        event.previousContainer.data,  // Lista de tareas de la columna original
+        event.container.data,          // Lista de tareas de la columna destino
+        event.previousIndex,           // Índice de la tarea en la columna original
+        event.currentIndex             // Índice donde debe colocarse en la columna destino
+      );
+    }
   }
 
-  ngOnInit(): void {
+  // Función para agregar una nueva columna
+  agregarColumna() {
+    const nombreColumna = prompt('Nombre de la nueva columna:');
+    if (nombreColumna) {
+      this.columnas.push(new Columna(nombreColumna, []));
+    }
   }
 
-  // funcino para inicializar tus columnas a mostrar en el html
-  crearColumnas() {
-    this.columnas.push({
-      id: 1, nombre: 'Pendiente', 
-      tareas: [
-        {id: 1, idColumna: 1, nombre: 'Dormir', descripcion: 'Cepillarse para luego ir a dormir'}
-      ]
-    });
-    this.columnas.push({id: 2, nombre: 'Pausado', tareas: []});
-    this.columnas.push({id: 3, nombre: 'Trabajando', tareas: []});
-    this.columnas.push({id: 4, nombre: 'Terminado', tareas: []});
+  // Función para eliminar una columna
+  eliminarColumna(columna: Columna) {
+    const indice = this.columnas.indexOf(columna);
+    if (indice > -1) {
+      this.columnas.splice(indice, 1);
+    }
   }
 
-  /** Recibe la tarea que seleccionaste para mover y guarda en una variable */
-  dragStart( tarea: IColumnaTareaModel ) {
-    this.tareaSeleccionada = tarea;
+  // Función para agregar una nueva tarea a una columna específica
+  agregarTarea(columna: Columna) {
+    const titulo = prompt('Título de la nueva tarea:');
+    const descripcion = prompt('Descripción de la nueva tarea:');
+    if (titulo && descripcion) {
+      columna.tareas.push(new Tarea(titulo, descripcion));
+    }
   }
 
-  /** Recibe la columna de donde seleccionaste la tarea a mover */
-  dragEnd( columna: IColumnaModel ) {
-    // en este punte tenes que borrar la tarea seleccionada de la lista de tareas de la columna
-    this.tareaSeleccionada = null;
+  // Función para eliminar una tarea de una columna específica
+  eliminarTarea(columna: Columna, tarea: Tarea) {
+    const indice = columna.tareas.indexOf(tarea);
+    if (indice > -1) {
+      columna.tareas.splice(indice, 1);
+    }
   }
-
-  /** Actualiza el id de la tarea seleccionada con el nuevo id de la columna donde moviste */
-  drop( columna: IColumnaModel ) {
-    // controlar que no haga el push si el id de la tarea ya existe en la lista de tareas de la columna
-    this.tareaSeleccionada.idColumna = columna.id;
-    columna.tareas.push(this.tareaSeleccionada)
-  }
-
 }
