@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { LocationStrategy, PathLocationStrategy } from '@angular/common';
+import { HashLocationStrategy, LocationStrategy, PathLocationStrategy } from '@angular/common';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { AppLayoutModule } from './layout/app.layout.module';
@@ -12,16 +12,21 @@ import { IconService } from './demo/service/icon.service';
 import { NodeService } from './demo/service/node.service';
 import { PhotoService } from './demo/service/photo.service';
 import { DragDropModule } from '@angular/cdk/drag-drop';
+import { FormsModule } from '@angular/forms';
+import { RegisterComponent } from './demo/components/auth/register/register.component';
+
 
 @NgModule({
     declarations: [
         AppComponent,
-        NotfoundComponent
+        NotfoundComponent,
+        RegisterComponent
     ],
     imports: [
         AppRoutingModule,
         AppLayoutModule,
-        DragDropModule
+        DragDropModule,
+        FormsModule
     ],
     providers: [
         { provide: LocationStrategy, useClass: PathLocationStrategy },
