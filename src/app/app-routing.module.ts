@@ -2,6 +2,9 @@ import { RouterModule } from '@angular/router';
 import { NgModule } from '@angular/core';
 import { NotfoundComponent } from './demo/components/notfound/notfound.component';
 import { AppLayoutComponent } from './layout/app.layout.component';
+import { RegisterComponent } from './demo/components/auth/register/register.component';
+import { LoginComponent } from '../app/demo/components/auth/login/login.component';
+import { DashboardComponent } from '../app/demo/components/dashboard/dashboard.component';
 
 @NgModule({
     imports: [
@@ -15,6 +18,10 @@ import { AppLayoutComponent } from './layout/app.layout.component';
             },
             { path: 'auth', loadChildren: () => import('./demo/components/auth/auth.module').then(m => m.AuthModule) },
             { path: 'notfound', component: NotfoundComponent },
+            { path: '', redirectTo: '/login', pathMatch: 'full' },
+            { path: 'register', component: RegisterComponent },
+            { path: 'dashboard', component: DashboardComponent },
+            { path: 'login', component: LoginComponent },
             { path: '**', redirectTo: '/notfound' }
         ], { scrollPositionRestoration: 'enabled', anchorScrolling: 'enabled', onSameUrlNavigation: 'reload' })
     ],
