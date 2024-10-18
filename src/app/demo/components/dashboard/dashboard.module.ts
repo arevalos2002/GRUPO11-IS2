@@ -8,7 +8,7 @@ import { TableModule } from 'primeng/table';
 import { ButtonModule } from 'primeng/button';
 import { StyleClassModule } from 'primeng/styleclass';
 import { PanelMenuModule } from 'primeng/panelmenu';
-import { DashboardsRoutingModule } from './dashboard-routing.module';
+import { DashboardRoutingModule } from './dashboard-routing.module'; // Asegúrate de que esta ruta sea correcta
 
 @NgModule({
     imports: [
@@ -20,8 +20,8 @@ import { DashboardsRoutingModule } from './dashboard-routing.module';
         StyleClassModule,
         PanelMenuModule,
         ButtonModule,
-        DashboardsRoutingModule
+        DashboardRoutingModule // Este es tu módulo de enrutamiento
     ],
     declarations: [DashboardComponent]
 })
-export class DashboardModule { }
+export class DashboardModule {}

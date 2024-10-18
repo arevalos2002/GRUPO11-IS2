@@ -1,7 +1,7 @@
 import { RouterModule } from '@angular/router';
 import { NgModule } from '@angular/core';
 import { NotfoundComponent } from './demo/components/notfound/notfound.component';
-import { AppLayoutComponent } from "./layout/app.layout.component";
+import { AppLayoutComponent } from './layout/app.layout.component';
 
 @NgModule({
     imports: [
@@ -11,16 +11,13 @@ import { AppLayoutComponent } from "./layout/app.layout.component";
                 children: [
                     { path: '', loadChildren: () => import('./demo/components/dashboard/dashboard.module').then(m => m.DashboardModule) },
                     { path: 'tablero', loadChildren: () => import('./demo/components/tablero/tablero.module').then(m => m.TableroModule) }
-                    
                 ]
             },
             { path: 'auth', loadChildren: () => import('./demo/components/auth/auth.module').then(m => m.AuthModule) },
             { path: 'notfound', component: NotfoundComponent },
-            { path: '**', redirectTo: '/notfound' },
-
+            { path: '**', redirectTo: '/notfound' }
         ], { scrollPositionRestoration: 'enabled', anchorScrolling: 'enabled', onSameUrlNavigation: 'reload' })
     ],
     exports: [RouterModule]
 })
-export class AppRoutingModule {
-}
+export class AppRoutingModule {}

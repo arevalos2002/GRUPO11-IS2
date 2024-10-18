@@ -1,0 +1,93 @@
+.dashboard {
+    padding: 20px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 30px;
+}
+
+.task-status-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.status-card {
+    background-color: #ffffff;
+    border-radius: 12px;
+    padding: 20px;
+    width: calc(50% - 10px);
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    transition: transform 0.3s ease;
+}
+
+.status-card:hover {
+    transform: translateY(-5px);
+}
+
+.status-header h3 {
+    font-size: 1.5rem;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+.status-count p {
+    font-size: 1.25rem;
+    color: #555;
+}
+
+.chart-container {
+    grid-column: span 2;
+    background-color: #ffffff;
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.chart-container h2 {
+    font-size: 1.5rem;
+    color: #333;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.user-tasks {
+    grid-column: span 2;
+}
+
+.user-task-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+.user-task-table thead {
+    background-color: #f8f9fa;
+}
+
+.user-task-table th, .user-task-table td {
+    padding: 15px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+.user-task-table th {
+    font-weight: 600;
+    color: #333;
+}
+
+.user-task-table tr:hover {
+    background-color: #f1f1f1;
+}
+
+@media (max-width: 768px) {
+    .dashboard {
+        grid-template-columns: 1fr;
+    }
+
+    .status-card {
+        width: 100%;
+    }
+}
+
+
