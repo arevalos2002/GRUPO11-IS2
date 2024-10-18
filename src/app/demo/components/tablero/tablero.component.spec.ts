@@ -1,5 +1,4 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { TableroComponent } from './tablero.component';
 
 describe('TableroComponent', () => {
@@ -8,10 +7,10 @@ describe('TableroComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [TableroComponent]
+      declarations: [ TableroComponent ]
     })
     .compileComponents();
-    
+
     fixture = TestBed.createComponent(TableroComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

@@ -1,4 +1,3 @@
-
 export interface IColumnaModel {
     id: number;
     nombre: string;

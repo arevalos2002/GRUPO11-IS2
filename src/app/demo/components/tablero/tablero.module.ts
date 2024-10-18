@@ -11,7 +11,7 @@ import { DragDropModule } from '@angular/cdk/drag-drop';  // Usa el DragDropModu
   imports: [
     CommonModule,
     TableroRoutingModule,
-    DragDropModule  // Mantén solo este
+    DragDropModule  // Necesario para el arrastrar y soltar
   ]
 })
 export class TableroModule { }

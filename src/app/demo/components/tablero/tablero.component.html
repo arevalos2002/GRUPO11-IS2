@@ -17,7 +17,7 @@
 
       <!-- Listado de tareas en la columna -->
       <div *ngFor="let tarea of columna.tareas" cdkDrag class="tarea">
-        <h4>{{ tarea.titulo }}</h4>
+        <h4>{{ tarea.nombre }}</h4>
         <p>{{ tarea.descripcion }}</p>
         <!-- Botón para eliminar la tarea -->
         <button (click)="eliminarTarea(columna, tarea)">Eliminar Tarea</button>

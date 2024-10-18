@@ -3,7 +3,7 @@ import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/dr
 
 // Clase para representar una tarea
 class Tarea {
-  constructor(public titulo: string, public descripcion: string) {}
+  constructor(public nombre: string, public descripcion: string) {}
 }
 
 // Clase para representar una columna
@@ -17,33 +17,19 @@ class Columna {
   styleUrls: ['./tablero.component.scss']
 })
 export class TableroComponent {
-  // Inicializa algunas columnas con tareas de ejemplo
-  //hola mundo
-  columnas: Columna[] = [
-    new Columna('Pendientes', [
-      new Tarea('Tarea 1', 'Descripción de tarea 1'),
-      new Tarea('Tarea 2', 'Descripción de tarea 2')
-    ]),
-    new Columna('En Progreso', [
-      new Tarea('Tarea 3', 'Descripción de tarea 3')
-    ]),
-    new Columna('Completadas', [
-      new Tarea('Tarea 4', 'Descripción de tarea 4')
-    ])
-  ];
+  // Inicializa el array de columnas vacío
+  columnas: Columna[] = [];
 
   // Función para mover una tarea entre columnas
   moverTarea(event: CdkDragDrop<Tarea[]>) {
-    // Si la tarea se mueve dentro de la misma columna
     if (event.previousContainer === event.container) {
       moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
     } else {
-      // Si la tarea se mueve a una columna diferente
       transferArrayItem(
-        event.previousContainer.data,  // Lista de tareas de la columna original
-        event.container.data,          // Lista de tareas de la columna destino
-        event.previousIndex,           // Índice de la tarea en la columna original
-        event.currentIndex             // Índice donde debe colocarse en la columna destino
+        event.previousContainer.data,
+        event.container.data,
+        event.previousIndex,
+        event.currentIndex
       );
     }
   }
@@ -66,10 +52,10 @@ export class TableroComponent {
 
   // Función para agregar una nueva tarea a una columna específica
   agregarTarea(columna: Columna) {
-    const titulo = prompt('Título de la nueva tarea:');
+    const nombre = prompt('Título de la nueva tarea:');
     const descripcion = prompt('Descripción de la nueva tarea:');
-    if (titulo && descripcion) {
-      columna.tareas.push(new Tarea(titulo, descripcion));
+    if (nombre && descripcion) {
+      columna.tareas.push(new Tarea(nombre, descripcion));
     }
   }
 
