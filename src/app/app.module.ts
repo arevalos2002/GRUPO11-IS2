@@ -12,13 +12,26 @@ import { IconService } from './demo/service/icon.service';
 import { NodeService } from './demo/service/node.service';
 import { PhotoService } from './demo/service/photo.service';
 import { DragDropModule } from '@angular/cdk/drag-drop';
+
 @NgModule({
-    declarations: [AppComponent, NotfoundComponent],
-    imports: [AppRoutingModule, AppLayoutModule, DragDropModule],
+    declarations: [
+        AppComponent,
+        NotfoundComponent
+    ],
+    imports: [
+        AppRoutingModule,
+        AppLayoutModule,
+        DragDropModule
+    ],
     providers: [
         { provide: LocationStrategy, useClass: PathLocationStrategy },
-        CountryService, CustomerService, EventService, IconService, NodeService,
-        PhotoService, ProductService
+        CountryService, 
+        CustomerService, 
+        EventService, 
+        IconService, 
+        NodeService,
+        PhotoService, 
+        ProductService
     ],
     bootstrap: [AppComponent],
 })
