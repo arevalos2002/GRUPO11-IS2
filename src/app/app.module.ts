@@ -14,6 +14,7 @@ import { PhotoService } from './demo/service/photo.service';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { FormsModule } from '@angular/forms';
 import { RegisterComponent } from './demo/components/auth/register/register.component';
+import { HttpClientModule } from '@angular/common/http';
 
 
 @NgModule({
@@ -26,6 +27,7 @@ import { RegisterComponent } from './demo/components/auth/register/register.comp
         AppRoutingModule,
         AppLayoutModule,
         DragDropModule,
+        HttpClientModule,
         FormsModule
     ],
     providers: [

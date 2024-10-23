@@ -1,25 +1,52 @@
 <div class="surface-ground flex align-items-center justify-content-center min-h-screen min-w-screen overflow-hidden" style="background-color: #f4f4f4;">
     <div class="flex flex-column align-items-center justify-content-center">                
         <div style="border-radius: 50px; padding: 2rem; background: linear-gradient(180deg, #4a4a4a 50%, rgba(74, 74, 74, 0) 250%);">
-            <div class="w-full surface-card py-8 px-5 sm:px-8" style="border-radius: 90px; background-color: #ffffff; box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);">
+            <div class="w-full surface-card py-8 px-5 sm:px-8" style="border-radius: 25px; background-color: #ffffff; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);">
                 <div class="text-center mb-5">
-                    <div class="text-900 text-3xl font-medium mb-3" style="color: #333;">INICIAR SESIÓN</div>
-                    <span class="text-600 font-medium" style="color: #666;">BIENVENIDO AL GESTOR KANBAN</span>
+                    <div class="text-900 text-4xl font-bold mb-3" style="color: #333; letter-spacing: 1px;">INICIAR SESIÓN</div>
+                    <span class="text-600 font-medium" style="color: #777; font-size: 1.1rem;">Bienvenido al Gestor Kanban</span>
                 </div>
 
-                <form (ngSubmit)="onLogin(loginForm)" #loginForm="ngForm" style="display: flex; flex-direction: column; align-items: center;">
-                    <div style="width: 100%; margin-bottom: 1.5rem;">
-                        <label style="display: block; margin-bottom: 0.5rem;">Username:</label>
-                        <input type="text" [(ngModel)]="username" name="username" required style="width: 100%; padding: 0.5rem; border: 1px solid #ccc; border-radius: 5px;">
+                <form (ngSubmit)="onLogin()" class="space-y-4">
+                    <div class="flex flex-column">
+                        <label for="username" style="color: #555; font-weight: bold;">Username:</label>
+                        <input 
+                            type="text" 
+                            id="username" 
+                            [(ngModel)]="loginData.username" 
+                            name="username" 
+                            required 
+                            style="padding: 0.75rem; border: 1px solid #ddd; border-radius: 8px; width: 100%; font-size: 1rem; color: #333; background-color: #f9f9f9;"
+                        >
                     </div>
-                    <div style="width: 100%; margin-bottom: 1.5rem;">
-                        <label style="display: block; margin-bottom: 0.5rem;">Password:</label>
-                        <input type="password" [(ngModel)]="password" name="password" required style="width: 100%; padding: 0.5rem; border: 1px solid #ccc; border-radius: 5px;">
+
+                    <div class="flex flex-column">
+                        <label for="password" style="color: #555; font-weight: bold;">Password:</label>
+                        <input 
+                            type="password" 
+                            id="password" 
+                            [(ngModel)]="loginData.password" 
+                            name="password" 
+                            required 
+                            style="padding: 0.75rem; border: 1px solid #ddd; border-radius: 8px; width: 100%; font-size: 1rem; color: #333; background-color: #f9f9f9;"
+                        >
                     </div>
-                    <button type="submit" style="padding: 0.75rem 1.5rem; border: none; border-radius: 5px; background-color: #4a4a4a; color: white; cursor: pointer;">Login</button>
+
+                    <button 
+                        type="submit" 
+                        style="padding: 0.75rem 1.5rem; border: none; border-radius: 8px; background-color: #4a4a4a; color: white; font-size: 1rem; cursor: pointer; transition: background-color 0.3s ease;"
+                        onmouseover="this.style.backgroundColor='#333'"
+                        onmouseout="this.style.backgroundColor='#4a4a4a'"
+                    >
+                        Login
+                    </button>
+
                     <div *ngIf="error" style="color: red; margin-top: 1rem;">{{ error }}</div>
-                    <p style="margin-top: 1.5rem;">No tienes una cuenta? <strong><a routerLink="/register" style="color: #6A5ACD;">Regístrate aquí</a></strong></p>
-                </form>      
+                    <p style="margin-top: 1.5rem; font-size: 0.9rem; color: #555;">
+                        No tienes una cuenta? 
+                        <strong><a routerLink="/register" style="color: #6A5ACD; text-decoration: none;">Regístrate aquí</a></strong>
+                    </p>
+                </form>   
             </div>
         </div>
     </div>

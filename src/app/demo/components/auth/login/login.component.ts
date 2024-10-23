@@ -1,41 +1,29 @@
+// login.component.ts
 import { Component } from '@angular/core';
-import { UserService } from '../../../../services/user.service'
-
+import { AuthService } from 'src/app/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
-  templateUrl: './login.component.html',
+  templateUrl: './login.component.html'
 })
-
 export class LoginComponent {
-  username: string = '';
-  password: string = '';
-  error: string = '';
+  loginData = { username: '', password: '' };
+  error: string | null = null;  // Añade la propiedad 'error' para manejar errores
 
-  constructor(private userService: UserService) {}
-/*
-  login() {
-    this.userService.login(this.username, this.password).subscribe({
+  constructor(private authService: AuthService, private router: Router) {}
+
+  onLogin(): void {
+    this.authService.login(this.loginData).subscribe({
       next: (response) => {
-        console.log('Login exitoso', response);
-        // Aquí puedes manejar el almacenamiento del token o redirigir al usuario
+        localStorage.setItem('access_token', response.access_token);
+        this.router.navigate(['/dashboard']);  // Redirige al dashboard u otra ruta
+        this.error = null;  // Limpiar cualquier error previo si el login es exitoso
       },
-      error: (error) => {
-        this.error = 'Error de login: ' + error.error.detail;
-      }
+      error: (err) => {
+        console.error('Login error', err);
+        this.error = 'Login fallido. Verifica tus credenciales.';  // Asigna un mensaje de error
+      },
     });
-  }*/
-
-    onLogin(form: any) {
-      this.userService.login(this.username, this.password).subscribe(
-        response => {
-          localStorage.setItem('access_token', response.access);
-          console.log('Login exitoso');
-        },
-        error => {
-          console.error('Error en el login:', error);
-        }
-      );
-    }
-     
+  }
 }
