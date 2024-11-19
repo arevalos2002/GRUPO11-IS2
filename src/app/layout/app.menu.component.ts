@@ -47,9 +47,9 @@ export class AppMenuComponent implements OnInit {
                         ]
                     },
                     {
-                        label: 'Tablero',
+                        label: 'Tableros',
                         icon: 'pi pi-fw pi-table',
-                        routerLink: ['/tablero']
+                        routerLink: ['/tableros']
                     }
                 ]
             },

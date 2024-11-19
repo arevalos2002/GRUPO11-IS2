@@ -13,7 +13,7 @@ import { DashboardComponent } from '../app/demo/components/dashboard/dashboard.c
                 path: '', component: AppLayoutComponent,
                 children: [
                     { path: '', loadChildren: () => import('./demo/components/dashboard/dashboard.module').then(m => m.DashboardModule) },
-                    { path: 'tablero', loadChildren: () => import('./demo/components/tablero/tablero.module').then(m => m.TableroModule) }
+                    { path: 'tableros', loadChildren: () => import('./demo/components/tablero/tablero.module').then(m => m.TableroModule) }
                 ]
             },
             { path: 'auth', loadChildren: () => import('./demo/components/auth/auth.module').then(m => m.AuthModule) },

@@ -1,27 +1,119 @@
-<div class="tablero">
-  <!-- Botón para agregar una nueva columna -->
-  <button (click)="agregarColumna()">Añadir Columna</button>
+<ng-container *ngIf="!tableroSeleccionado">
 
-  <!-- Contenedor de columnas con comportamiento flexible -->
-  <div class="columnas" cdkDropListGroup> <!-- cdkDropListGroup agrupa las listas -->
-    <!-- Recorre las columnas -->
-    <div class="columna" *ngFor="let columna of columnas" cdkDropList [cdkDropListData]="columna.tareas" (cdkDropListDropped)="moverTarea($event)">
-      <h3>
-        {{ columna.nombre }}
-        <!-- Botón para eliminar la columna -->
-        <button (click)="eliminarColumna(columna)">Eliminar Columna</button>
-      </h3>
+	<div class="grid">
+		<ng-container *ngFor="let tablero of tableros">
+			<div class="col-3">
+				<p-card (click)="seleccionarTablero(tablero)" [header]="tablero.nombre"></p-card>
+			</div>
+		</ng-container>
+		<ng-container>
+			<div class="col-3">
+				<p-card (click)="nuevoTablero()">
+					<h3>Crear Nuevo Tablero</h3>
+				</p-card>
+			</div>
+		</ng-container>
+	</div>
+	
+	<p-dialog header="CREAR TABLERO" [modal]="true" [(visible)]="tableroVisible" [style]="{ width: '25rem' }">
+		<span class="p-text-secondary block mb-5">Titulo del Tablero</span>
+		<div class="flex align-items-center gap-3 mb-3">
+			<input pInputText id="nombre" [(ngModel)]="nombreTablero" class="flex-auto" autocomplete="off" />
+		</div>
+		<div class="flex justify-content-end gap-2">
+			<p-button label="Cancelar" severity="secondary" (onClick)="tableroVisible = false" />
+			<p-button label="Crear" (onClick)="crearTablero()" />
+		</div>
+	</p-dialog>
 
-      <!-- Botón para agregar una nueva tarea -->
-      <button (click)="agregarTarea(columna)">Añadir Tarea</button>
+</ng-container>
 
-      <!-- Listado de tareas en la columna -->
-      <div *ngFor="let tarea of columna.tareas" cdkDrag class="tarea">
-        <h4>{{ tarea.nombre }}</h4>
-        <p>{{ tarea.descripcion }}</p>
-        <!-- Botón para eliminar la tarea -->
-        <button (click)="eliminarTarea(columna, tarea)">Eliminar Tarea</button>
-      </div>
+<ng-container *ngIf="tableroSeleccionado">
+    <div class="grid flex justify-content-center">
+        <h1>TABLERO: {{ tableroSeleccionado.nombre }}</h1>
     </div>
-  </div>
-</div>
+    <hr>
+    <div class="grid">
+        <ng-container *ngFor="let columna of tableroSeleccionado.columnas">
+            <div class="col-3">
+                <p-card (click)="seleccionarColumna(columna)" [header]="columna.nombre"></p-card>
+            </div>
+        </ng-container>
+
+        <ng-container>
+            <div class="col-3">
+                <p-card (click)="nuevaColumna()">
+                    <h3>Añadir Columna</h3>
+                </p-card>
+            </div>
+        </ng-container>
+    </div>
+
+    <p-dialog header="NOMBRE COLUMNA" [modal]="true" [(visible)]="columnaVisible" [style]="{ width: '25rem' }">
+        <span class="p-text-secondary block mb-5">Titulo de la Columna</span>
+        <div class="flex align-items-center gap-3 mb-3">
+            <input pInputText id="nombre" [(ngModel)]="nombreColumna" class="flex-auto" autocomplete="off" />
+        </div>
+        <div class="flex justify-content-end gap-2">
+            <p-button label="Cancelar" severity="secondary" (onClick)="columnaVisible = false" />
+            <p-button label="Crear" (onClick)="agregarColumna()" />
+        </div>
+    </p-dialog>
+
+
+	<ng-container *ngIf="columnaSeleccionada">
+		<div>
+			<h2>Columna: {{ columnaSeleccionada.nombre }}</h2>
+		</div>
+	
+		<div class="grid">
+			<ng-container *ngFor="let tarea of columnaSeleccionada.tareas">
+				<div class="col-3">
+					<p-card [header]="tarea.nombre">
+						<p>{{ tarea.descripcion }}</p>
+						<small>{{ tarea.fechaInicio | date }} - {{ tarea.fechaFin | date }}</small>
+						<p><strong>Usuario:</strong> {{ tarea.usuario }}</p>
+						<p><strong>Estado:</strong> {{ tarea.estado }}</p>
+					</p-card>
+				</div>
+			</ng-container>
+	
+			<div class="col-3">
+				<p-card (click)="nuevaTarea()">
+					<h3>Añadir Tarea</h3>
+				</p-card>
+			</div>
+		</div>
+	
+		<p-dialog header="CREAR TAREA" [modal]="true" [(visible)]="tareaVisible" [style]="{ width: '25rem' }">
+			<div>
+				<label for="nombre">Nombre</label>
+				<input pInputText id="nombre" [(ngModel)]="nombreTarea" />
+	
+				<label for="descripcion">Descripción</label>
+				<textarea pInputTextarea id="descripcion" [(ngModel)]="descripcionTarea"></textarea>
+	
+				<label for="fechaInicio">Fecha Inicio</label>
+				<input pInputText id="fechaInicio" [(ngModel)]="fechaInicioTarea" type="date" />
+	
+				<label for="fechaFin">Fecha Fin</label>
+				<input pInputText id="fechaFin" [(ngModel)]="fechaFinTarea" type="date" />
+	
+				<label for="usuario">Usuario</label>
+				<input pInputText id="usuario" [(ngModel)]="usuarioTarea" />
+	
+				<label for="estado">Estado</label>
+				<input pInputText id="estado" [(ngModel)]="estadoTarea" />
+			</div>
+			<div class="flex justify-content-end gap-2">
+				<p-button label="Cancelar" severity="secondary" (onClick)="tareaVisible = false" />
+				<p-button label="Crear" (onClick)="crearTarea()" />
+			</div>
+		</p-dialog>
+	</ng-container>
+	
+</ng-container>
+
+
+
+
